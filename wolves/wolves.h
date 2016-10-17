@@ -9,8 +9,8 @@ typedef struct {
     unsigned char brightness;
     unsigned int frame;
     unsigned int end_frame;
-    animation anim; // FIXME enum
+    animation anim;
 } dyn_pixl;
 
-void do_wait( dyn_pixl *pixl);
-void dump_pixl( dyn_pixl *pixl);
+void do_wait(dyn_pixl * pixl);
+void dump_pixl(dyn_pixl * pixl);
