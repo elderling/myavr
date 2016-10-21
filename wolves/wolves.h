@@ -13,6 +13,8 @@ typedef struct {
 } dyn_pixl;
 
 void do_wait(dyn_pixl * pixl);
+void do_on(dyn_pixl * pixl);
+void do_off(dyn_pixl * pixl);
 void render_pixl(dyn_pixl * pixl);
 void update_pixls( dyn_pixl pixls[] );
 void render_pixls( dyn_pixl pixls[] );

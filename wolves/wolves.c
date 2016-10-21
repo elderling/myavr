@@ -11,7 +11,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
   {255,                         // red
    255,                         //green
    255,                         //blue
-   255,                         // brightness
+   0,                           // brightness
    0,                           // frame
    5,                           // end_frame
    wait                         // anim
@@ -20,18 +20,18 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
   {127,                         // red
    127,                         //green
    127,                         //blue
-   255,                         // brightness
+   0,                           // brightness
    0,                           // frame
-   2525,                        // end_frame
+   6,                           // end_frame
    wait                         // anim
    }
   ,
   {255,                         // red
    255,                         //green
    255,                         //blue
-   255,                         // brightness
+   0,                           // brightness
    0,                           // frame
-   25,                          // end_frame
+   7,                           // end_frame
    wait                         // anim
    }
 };
@@ -73,10 +73,22 @@ update_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
+// FIXME switch?
       if ((&dyn_pixls[n])->anim == wait)
         {
           do_wait (&dyn_pixls[n]);
         }
+
+      if ((&dyn_pixls[n])->anim == on)
+        {
+          do_on (&dyn_pixls[n]);
+        }
+
+      if ((&dyn_pixls[n])->anim == off)
+        {
+          do_off (&dyn_pixls[n]);
+        }
+
       if ((&dyn_pixls[n])->frame == (&dyn_pixls[n])->end_frame)
         {
           random_anim (&dyn_pixls[n]);
@@ -89,10 +101,9 @@ update_pixls (dyn_pixl pixls[])
 void
 random_anim (dyn_pixl * pixl)
 {
-
-  long therand;
-  therand = random_at_most (3);
-  pixl->anim = (animation) therand;
+  pixl->frame = 0;
+  pixl->anim = (animation) random_at_most (2);
+  pixl->end_frame = (int) random_at_most (6);
   return;
 }
 
@@ -110,6 +121,7 @@ do_wait (dyn_pixl * pixl)
 void
 do_on (dyn_pixl * pixl)
 {
+  pixl->brightness = 100;
   if (pixl->frame < pixl->end_frame)
     {
       pixl->frame++;
@@ -118,14 +130,25 @@ do_on (dyn_pixl * pixl)
   return;
 }
 
+void
+do_off (dyn_pixl * pixl)
+{
+  pixl->brightness = 0;
+  if (pixl->frame < pixl->end_frame)
+    {
+      pixl->frame++;
+    }
+
+  return;
+}
 
 void
 render_pixl (dyn_pixl * pixl)
 {
 
-  printf (" red: %u", pixl->red);
-  printf (", green: %u", pixl->green);
-  printf (", blue: %u", pixl->blue);
+  //printf (" red: %u", pixl->red);
+  //printf (", green: %u", pixl->green);
+  //printf (", blue: %u", pixl->blue);
   printf (", brightness: %u", pixl->brightness);
   printf (", frame: %u", pixl->frame);
   printf (", end_frame: %u", pixl->end_frame);
