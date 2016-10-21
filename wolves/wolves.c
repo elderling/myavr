@@ -13,7 +13,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    255,                         //blue
    255,                         // brightness
    0,                           // frame
-   0,                           // end_frame
+   5,                           // end_frame
    wait                         // anim
    }
   ,
@@ -22,7 +22,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    127,                         //blue
    255,                         // brightness
    0,                           // frame
-   0,                           // end_frame
+   2525,                        // end_frame
    wait                         // anim
    }
   ,
@@ -31,7 +31,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    255,                         //blue
    255,                         // brightness
    0,                           // frame
-   0,                           // end_frame
+   25,                          // end_frame
    wait                         // anim
    }
 };
@@ -40,12 +40,13 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
 int
 main (int argc, char **argv)
 {
-    
+
   int n;
-  for( n = 0; n < TOTAL_FRAMES; n++ ) {
-      printf("main frame: %u\n", n);
-  update_pixls (dyn_pixls);
-  render_pixls (dyn_pixls);
+  for (n = 0; n < TOTAL_FRAMES; n++)
+    {
+      printf ("main frame: %u\n", n);
+      update_pixls (dyn_pixls);
+      render_pixls (dyn_pixls);
     }
 }
 
@@ -60,7 +61,7 @@ render_pixls (dyn_pixl pixls[])
 
       printf ("\n");
     }
-      printf ("\n");
+  printf ("\n");
 
 
   return;
@@ -72,7 +73,10 @@ update_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-      do_wait (&dyn_pixls[n]);
+      if ((&dyn_pixls[n])->anim == wait)
+        {
+          do_wait (&dyn_pixls[n]);
+        }
     }
 
   return;
