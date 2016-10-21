@@ -37,25 +37,43 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
 int
 main (int argc, char **argv)
 {
+ update_pixls(dyn_pixls); 
+ render_pixls(dyn_pixls);
+}
+
+void render_pixls( dyn_pixl pixls[] ) {
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-      do_wait (&dyn_pixls[n]);
-      dump_pixl (&dyn_pixls[n]);
+      render_pixl (&dyn_pixls[n]);
     }
 
+
+    return;
+}
+void update_pixls( dyn_pixl pixls[] ) {
+  unsigned char n;
+  for (n = 0; n < NUMBER_OF_PIXLS; n++)
+    {
+      render_pixl (&dyn_pixls[n]);
+    }
+
+    return;
 }
 
 void
 do_wait (dyn_pixl * pixl)
 {
-  pixl->red = 15;
-  pixl->anim = wait;
+  if (pixl->frame < pixl->end_frame)
+    {
+      pixl->frame++;
+    }
+
   return;
 }
 
 void
-dump_pixl (dyn_pixl * pixl)
+render_pixl (dyn_pixl * pixl)
 {
 
   printf ("Dumping dyn_pixl\n");
