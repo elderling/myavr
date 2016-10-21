@@ -41,10 +41,12 @@ int
 main (int argc, char **argv)
 {
 
-  int n;
+  int n, therand;
   for (n = 0; n < TOTAL_FRAMES; n++)
     {
+      therand = (int) random_at_most (2);
       printf ("main frame: %u\n", n);
+      printf ("Random: %u\n", therand);
       update_pixls (dyn_pixls);
       render_pixls (dyn_pixls);
     }
@@ -77,8 +79,20 @@ update_pixls (dyn_pixl pixls[])
         {
           do_wait (&dyn_pixls[n]);
         }
+      if ((&dyn_pixls[n])->frame == (&dyn_pixls[n])->end_frame)
+        {
+          random_anim (&dyn_pixls[n]);
+        }
     }
 
+  return;
+}
+
+void
+random_anim (dyn_pixl * pixl)
+{
+  int rnd_int;
+  rnd_int = (rand () * 2);
   return;
 }
 
@@ -94,6 +108,18 @@ do_wait (dyn_pixl * pixl)
 }
 
 void
+do_on (dyn_pixl * pixl)
+{
+  if (pixl->frame < pixl->end_frame)
+    {
+      pixl->frame++;
+    }
+
+  return;
+}
+
+
+void
 render_pixl (dyn_pixl * pixl)
 {
 
@@ -105,4 +131,29 @@ render_pixl (dyn_pixl * pixl)
   printf (", end_frame: %u", pixl->end_frame);
 
   return;
+}
+
+// From http://stackoverflow.com/questions/2509679/how-to-generate-a-random-number-from-within-a-range#6852396
+// Assumes 0 <= max <= RAND_MAX
+// Returns in the closed interval [0, max]
+long
+random_at_most (long max)
+{
+  unsigned long
+    // max <= RAND_MAX < ULONG_MAX, so this is okay.
+   
+    num_bins = (unsigned long) max + 1,
+    num_rand = (unsigned long) RAND_MAX + 1,
+    bin_size = num_rand / num_bins, defect = num_rand % num_bins;
+
+  long x;
+  do
+    {
+      x = random ();
+    }
+  // This is carefully written not to overflow
+  while (num_rand - defect <= (unsigned long) x);
+
+  // Truncated division is intentional
+  return x / bin_size;
 }

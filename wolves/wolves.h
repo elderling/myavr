@@ -16,3 +16,5 @@ void do_wait(dyn_pixl * pixl);
 void render_pixl(dyn_pixl * pixl);
 void update_pixls( dyn_pixl pixls[] );
 void render_pixls( dyn_pixl pixls[] );
+void random_anim(dyn_pixl * pixl);
+long random_at_most(long max) ;
