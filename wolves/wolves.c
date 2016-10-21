@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "wolves.h"
 
 
@@ -35,11 +36,17 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    }
 };
 
+
 int
 main (int argc, char **argv)
 {
+    
+  int n;
+  for( n = 0; n < TOTAL_FRAMES; n++ ) {
+      printf("main frame: %u\n", n);
   update_pixls (dyn_pixls);
   render_pixls (dyn_pixls);
+    }
 }
 
 void
@@ -53,6 +60,7 @@ render_pixls (dyn_pixl pixls[])
 
       printf ("\n");
     }
+      printf ("\n");
 
 
   return;
