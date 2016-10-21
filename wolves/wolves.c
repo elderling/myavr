@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "wolves.h"
 
+
 #define NUMBER_OF_PIXLS 3
 #define TOTAL_FRAMES 50
 
@@ -37,28 +38,36 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
 int
 main (int argc, char **argv)
 {
- update_pixls(dyn_pixls); 
- render_pixls(dyn_pixls);
+  update_pixls (dyn_pixls);
+  render_pixls (dyn_pixls);
 }
 
-void render_pixls( dyn_pixl pixls[] ) {
+void
+render_pixls (dyn_pixl pixls[])
+{
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
+      printf ("Rendering dyn_pixl %u : ", n);
       render_pixl (&dyn_pixls[n]);
+
+      printf ("\n");
     }
 
 
-    return;
+  return;
 }
-void update_pixls( dyn_pixl pixls[] ) {
+
+void
+update_pixls (dyn_pixl pixls[])
+{
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-      render_pixl (&dyn_pixls[n]);
+      do_wait (&dyn_pixls[n]);
     }
 
-    return;
+  return;
 }
 
 void
@@ -76,14 +85,12 @@ void
 render_pixl (dyn_pixl * pixl)
 {
 
-  printf ("Dumping dyn_pixl\n");
-  printf ("red: %u\n", pixl->red);
-  printf ("green: %u\n", pixl->green);
-  printf ("blue: %u\n", pixl->blue);
-  printf ("brightness: %u\n", pixl->brightness);
-  printf ("frame: %u\n", pixl->frame);
-  printf ("end_frame: %u\n", pixl->end_frame);
-  printf ("\n");
+  printf (" red: %u", pixl->red);
+  printf (", green: %u", pixl->green);
+  printf (", blue: %u", pixl->blue);
+  printf (", brightness: %u", pixl->brightness);
+  printf (", frame: %u", pixl->frame);
+  printf (", end_frame: %u", pixl->end_frame);
 
   return;
 }
