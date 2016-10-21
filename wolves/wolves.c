@@ -41,12 +41,10 @@ int
 main (int argc, char **argv)
 {
 
-  int n, therand;
+  int n;
   for (n = 0; n < TOTAL_FRAMES; n++)
     {
-      therand = (int) random_at_most (2);
       printf ("main frame: %u\n", n);
-      printf ("Random: %u\n", therand);
       update_pixls (dyn_pixls);
       render_pixls (dyn_pixls);
     }
@@ -91,8 +89,10 @@ update_pixls (dyn_pixl pixls[])
 void
 random_anim (dyn_pixl * pixl)
 {
-  int rnd_int;
-  rnd_int = (rand () * 2);
+
+  long therand;
+  therand = random_at_most (3);
+  pixl->anim = (animation) therand;
   return;
 }
 
@@ -129,6 +129,7 @@ render_pixl (dyn_pixl * pixl)
   printf (", brightness: %u", pixl->brightness);
   printf (", frame: %u", pixl->frame);
   printf (", end_frame: %u", pixl->end_frame);
+  printf (", anim: %u", pixl->anim);
 
   return;
 }
