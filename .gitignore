@@ -2,4 +2,5 @@
 *.gch
 *.c~
 *.h~
+*.ino~
 wolves/wolves
