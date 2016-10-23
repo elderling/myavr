@@ -3,29 +3,31 @@
 
 #define DEBUG 1
 #ifdef DEBUG
- #include <stdio.h>
+#include <stdio.h>
 #endif
 
-typedef enum { wait, on, off } animation;
+typedef enum
+{ wait, on, off } animation;
 
-typedef struct {
-    unsigned char red;
-    unsigned char green;
-    unsigned char blue;
-    unsigned char brightness;
-    unsigned int frame;
-    unsigned int end_frame;
-    animation anim;
+typedef struct
+{
+  unsigned char red;
+  unsigned char green;
+  unsigned char blue;
+  unsigned char brightness;
+  unsigned int frame;
+  unsigned int end_frame;
+  animation anim;
 } dyn_pixl;
 
-void do_wait(dyn_pixl * pixl);
-void do_on(dyn_pixl * pixl);
-void do_off(dyn_pixl * pixl);
-void render_pixl(dyn_pixl * pixl);
-void update_pixls( dyn_pixl pixls[] );
-void render_pixls( dyn_pixl pixls[] );
+void do_wait (dyn_pixl * pixl);
+void do_on (dyn_pixl * pixl);
+void do_off (dyn_pixl * pixl);
+void render_pixl (dyn_pixl * pixl);
+void update_pixls (dyn_pixl pixls[]);
+void render_pixls (dyn_pixl pixls[]);
 //void random_anim(dyn_pixl * pixl);
-long random_at_most(long max) ;
+long random_at_most (long max);
 
 
 #define NUMBER_OF_PIXLS 3
@@ -37,7 +39,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    255,                         //blue
    0,                           // brightness
    0,                           // frame
-   5,                           // end_frame
+   2,                           // end_frame
    wait                         // anim
    }
   ,
@@ -46,7 +48,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    127,                         //blue
    0,                           // brightness
    0,                           // frame
-   6,                           // end_frame
+   2,                           // end_frame
    wait                         // anim
    }
   ,
@@ -55,16 +57,14 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    255,                         //blue
    0,                           // brightness
    0,                           // frame
-   7,                           // end_frame
+   2,                           // end_frame
    wait                         // anim
    }
 };
 
-
 int
 main (int argc, char **argv)
 {
-
   int n;
   for (n = 0; n < TOTAL_FRAMES; n++)
     {
@@ -108,18 +108,39 @@ update_pixls (dyn_pixl pixls[])
       switch (dyn_pixls[n].anim)
         {
         case wait:
+#ifdef DEBUG
+          printf ("wait pixl %u\n", n);
+#endif
+
           do_wait (&dyn_pixls[n]);
+          if (dyn_pixls[n].frame >= dyn_pixls[n].end_frame)
+            {
+              dyn_pixls[n].frame = 0;
+              if (dyn_pixls[n].brightness == 0)
+                dyn_pixls[n].anim = on;
+              else
+                dyn_pixls[n].anim = off;
+            }
           break;
         case on:
+#ifdef DEBUG
+          printf ("on pixl %u\n", n);
+#endif
           do_on (&dyn_pixls[n]);
+          dyn_pixls[n].frame = 0;
+          dyn_pixls[n].anim = wait;
           break;
         case off:
+#ifdef DEBUG
+          printf ("off pixl %u\n", n);
+#endif
           do_off (&dyn_pixls[n]);
+          dyn_pixls[n].frame = 0;
+          dyn_pixls[n].frame = wait;
           break;
         }
-
-      return;
     }
+  return;
 }
 
 /*
