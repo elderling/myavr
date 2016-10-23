@@ -8,20 +8,20 @@ typedef struct
   unsigned char red;
   unsigned char green;
   unsigned char blue;
-  float brightness;
+  unsigned char brightness;
   unsigned int frame;
   unsigned int end_frame;
   animation anim;
 } dyn_pixl;
 
-void do_wait(dyn_pixl * pixl);
-void do_on(dyn_pixl * pixl);
-void do_off(dyn_pixl * pixl);
-void render_pixl(dyn_pixl * pixl);
-void update_pixls( dyn_pixl pixls[] );
-void render_pixls( dyn_pixl pixls[] );
-void random_anim(dyn_pixl * pixl);
-long random_at_most(long max) ;
+void do_wait (dyn_pixl * pixl);
+void do_on (dyn_pixl * pixl);
+void do_off (dyn_pixl * pixl);
+void render_pixl (dyn_pixl * pixl);
+void update_pixls (dyn_pixl pixls[]);
+void render_pixls (dyn_pixl pixls[]);
+void random_anim (dyn_pixl * pixl);
+long random_at_most (long max);
 
 #define NUMBER_OF_PIXLS 3
 #define TOTAL_FRAMES 50
@@ -30,7 +30,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
   {255,                         // red
    255,                         //green
    255,                         //blue
-   1,                         // brightness
+   1,                           // brightness
    0,                           // frame
    5,                           // end_frame
    wait                         // anim
@@ -39,7 +39,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
   {127,                         // red
    127,                         //green
    127,                         //blue
-   1,                         // brightness
+   1,                           // brightness
    0,                           // frame
    6,                           // end_frame
    wait                         // anim
@@ -48,21 +48,21 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
   {255,                         // red
    255,                         //green
    255,                         //blue
-   1,                         // brightness
+   1,                           // brightness
    0,                           // frame
    7,                           // end_frame
    wait                         // anim
    }
 };
 
-void do_wait(dyn_pixl * pixl);
-void do_on(dyn_pixl * pixl);
-void do_off(dyn_pixl * pixl);
-void render_pixl(dyn_pixl * pixl);
-void update_pixls( dyn_pixl pixls[] );
-void render_pixls( dyn_pixl pixls[] );
-void random_anim(dyn_pixl * pixl);
-long random_at_most(long max) ;
+void do_wait (dyn_pixl * pixl);
+void do_on (dyn_pixl * pixl);
+void do_off (dyn_pixl * pixl);
+void render_pixl (dyn_pixl * pixl);
+void update_pixls (dyn_pixl pixls[]);
+void render_pixls (dyn_pixl pixls[]);
+void random_anim (dyn_pixl * pixl);
+long random_at_most (long max);
 
 Adafruit_NeoPixel strip =
 Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
@@ -70,8 +70,8 @@ Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 void
 setup ()
 {
-    strip.begin();
-  render_pixls(dyn_pixls);
+  strip.begin ();
+  render_pixls (dyn_pixls);
 
 }
 
@@ -79,8 +79,9 @@ void
 loop ()
 {
   // put your main code here, to run repeatedly:
-      update_pixls (dyn_pixls);
-      render_pixls (dyn_pixls);
+  update_pixls (dyn_pixls);
+  render_pixls (dyn_pixls);
+  delay(10);
 }
 
 void
@@ -90,15 +91,15 @@ render_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-      red = pixls[n].red * pixls[n].brightness / 100;
-      green = pixls[n].green * pixls[n].brightness / 100;
-      blue = pixls[n].blue * pixls[n].brightness / 100;
+      red = pixls[n].red ;
+      green = pixls[n].green;
+      blue = pixls[n].blue;
 
       strip.setPixelColor (n, strip.Color (red, green, blue));
 
     }
 
-strip.show();
+  strip.show ();
   return;
 }
 
@@ -108,25 +109,40 @@ update_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
+      pixls[n].red++;
+      pixls[n].green++;
+      pixls[n].blue++;
+
+    }
+
+  return;
+}
+
+void
+update_pixls2 (dyn_pixl pixls[])
+{
+  unsigned char n;
+  for (n = 0; n < NUMBER_OF_PIXLS; n++)
+    {
 // FIXME switch?
-      if ((&dyn_pixls[n])->anim == wait)
+      if ((&pixls[n])->anim == wait)
         {
-          do_wait (&dyn_pixls[n]);
+          do_wait (&pixls[n]);
         }
 
-      if ((&dyn_pixls[n])->anim == on)
+      if ((&pixls[n])->anim == on)
         {
-          do_on (&dyn_pixls[n]);
+          do_on (&pixls[n]);
         }
 
-      if ((&dyn_pixls[n])->anim == off)
+      if ((&pixls[n])->anim == off)
         {
-          do_off (&dyn_pixls[n]);
+          do_off (&pixls[n]);
         }
 
-      if ((&dyn_pixls[n])->frame == (&dyn_pixls[n])->end_frame)
+      if ((&pixls[n])->frame == (&pixls[n])->end_frame)
         {
-          random_anim (&dyn_pixls[n]);
+          random_anim (&pixls[n]);
         }
     }
 
@@ -145,6 +161,7 @@ random_anim (dyn_pixl * pixl)
 void
 do_wait (dyn_pixl * pixl)
 {
+  pixl->brightness++;
   if (pixl->frame < pixl->end_frame)
     {
       pixl->frame++;

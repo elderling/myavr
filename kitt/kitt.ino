@@ -4,7 +4,7 @@
   #include <avr/power.h>
 #endif
 
-#define PIN 1
+#define PIN 6
 
 /*
 
