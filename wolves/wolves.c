@@ -1,5 +1,9 @@
 
-#include <stdio.h>
+#define DEBUG 1
+#ifdef DEBUG
+ #include <stdio.h>
+#endif
+
 #include <stdlib.h>
 #include "wolves.h"
 
@@ -44,7 +48,9 @@ main (int argc, char **argv)
   int n;
   for (n = 0; n < TOTAL_FRAMES; n++)
     {
+#ifdef DEBUG
       printf ("main frame: %u\n", n);
+#endif
       update_pixls (dyn_pixls);
       render_pixls (dyn_pixls);
     }
@@ -56,13 +62,19 @@ render_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
+#ifdef DEBUG
       printf ("Rendering dyn_pixl %u : ", n);
+#endif
       render_pixl (&dyn_pixls[n]);
 
+#ifdef DEBUG
       printf ("\n");
+#endif
     }
-  printf ("\n");
 
+#ifdef DEBUG
+  printf ("\n");
+#endif
 
   return;
 }
@@ -73,29 +85,21 @@ update_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-// FIXME switch?
-      if ((&dyn_pixls[n])->anim == wait)
+      switch (dyn_pixls[n].anim)
         {
+        case wait:
           do_wait (&dyn_pixls[n]);
-        }
-
-      if ((&dyn_pixls[n])->anim == on)
-        {
+          break;
+        case on:
           do_on (&dyn_pixls[n]);
-        }
-
-      if ((&dyn_pixls[n])->anim == off)
-        {
+          break;
+        case off:
           do_off (&dyn_pixls[n]);
+          break;
         }
 
-      if ((&dyn_pixls[n])->frame == (&dyn_pixls[n])->end_frame)
-        {
-          random_anim (&dyn_pixls[n]);
-        }
+      return;
     }
-
-  return;
 }
 
 void
@@ -146,6 +150,7 @@ void
 render_pixl (dyn_pixl * pixl)
 {
 
+#ifdef DEBUG
   //printf (" red: %u", pixl->red);
   //printf (", green: %u", pixl->green);
   //printf (", blue: %u", pixl->blue);
@@ -153,6 +158,7 @@ render_pixl (dyn_pixl * pixl)
   printf (", frame: %u", pixl->frame);
   printf (", end_frame: %u", pixl->end_frame);
   printf (", anim: %u", pixl->anim);
+#endif
 
   return;
 }
