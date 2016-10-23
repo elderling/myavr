@@ -1,4 +1,4 @@
-wolves: wolves.c wolves.h
+wolves: wolves.c
 	gcc wolves.c -o wolves
 
 .PHONY: clean
