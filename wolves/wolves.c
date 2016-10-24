@@ -14,7 +14,7 @@ typedef struct
   unsigned char red;
   unsigned char green;
   unsigned char blue;
-  unsigned char brightness;
+  double brightness;
   unsigned int frame;
   unsigned int end_frame;
   animation anim;
@@ -168,7 +168,7 @@ do_wait (dyn_pixl * pixl)
 void
 do_on (dyn_pixl * pixl)
 {
-  pixl->brightness = 100;
+  pixl->brightness = 1;
 
   return;
 }
@@ -181,6 +181,11 @@ do_off (dyn_pixl * pixl)
   return;
 }
 
+void do_glow (dyn_pixl * pixl) {
+
+    return;
+}
+
 void
 render_pixl (dyn_pixl * pixl)
 {
@@ -189,7 +194,7 @@ render_pixl (dyn_pixl * pixl)
   //printf (" red: %u", pixl->red);
   //printf (", green: %u", pixl->green);
   //printf (", blue: %u", pixl->blue);
-  printf (", brightness: %u", pixl->brightness);
+  printf (", brightness: %f", pixl->brightness);
   printf (", frame: %u", pixl->frame);
   printf (", end_frame: %u", pixl->end_frame);
   printf (", anim: %u", pixl->anim);
