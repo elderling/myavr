@@ -26,7 +26,7 @@ void do_off (dyn_pixl * pixl);
 void render_pixl (dyn_pixl * pixl);
 void update_pixls (dyn_pixl pixls[]);
 void render_pixls (dyn_pixl pixls[]);
-//void random_anim(dyn_pixl * pixl);
+void random_anim (dyn_pixl * pixl);
 long random_at_most (long max);
 
 
@@ -115,11 +115,7 @@ update_pixls (dyn_pixl pixls[])
           do_wait (&pixls[n]);
           if (pixls[n].frame >= pixls[n].end_frame)
             {
-              pixls[n].frame = 0;
-              if (pixls[n].brightness == 0)
-                pixls[n].anim = on;
-              else
-                pixls[n].anim = off;
+              random_anim (&pixls[n]);
             }
           break;
         case on:
@@ -127,23 +123,20 @@ update_pixls (dyn_pixl pixls[])
           printf ("on pixl %u\n", n);
 #endif
           do_on (&pixls[n]);
-          pixls[n].frame = 0;
-          pixls[n].anim = wait;
+          random_anim (&pixls[n]);
           break;
         case off:
 #ifdef DEBUG
           printf ("off pixl %u\n", n);
 #endif
           do_off (&pixls[n]);
-          pixls[n].frame = 0;
-          pixls[n].anim = wait;
+          random_anim (&pixls[n]);
           break;
         }
     }
   return;
 }
 
-/*
 void
 random_anim (dyn_pixl * pixl)
 {
@@ -152,7 +145,6 @@ random_anim (dyn_pixl * pixl)
   pixl->end_frame = (int) random_at_most (6);
   return;
 }
-*/
 
 void
 do_wait (dyn_pixl * pixl)
@@ -181,9 +173,11 @@ do_off (dyn_pixl * pixl)
   return;
 }
 
-void do_glow (dyn_pixl * pixl) {
+void
+do_glow (dyn_pixl * pixl)
+{
 
-    return;
+  return;
 }
 
 void
