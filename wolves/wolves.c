@@ -85,7 +85,7 @@ render_pixls (dyn_pixl pixls[])
 #ifdef DEBUG
       printf ("Rendering dyn_pixl %u : ", n);
 #endif
-      render_pixl (&dyn_pixls[n]);
+      render_pixl (&pixls[n]);
 
 #ifdef DEBUG
       printf ("\n");
@@ -105,38 +105,38 @@ update_pixls (dyn_pixl pixls[])
   unsigned char n;
   for (n = 0; n < NUMBER_OF_PIXLS; n++)
     {
-      switch (dyn_pixls[n].anim)
+      switch (pixls[n].anim)
         {
         case wait:
 #ifdef DEBUG
           printf ("wait pixl %u\n", n);
 #endif
 
-          do_wait (&dyn_pixls[n]);
-          if (dyn_pixls[n].frame >= dyn_pixls[n].end_frame)
+          do_wait (&pixls[n]);
+          if (pixls[n].frame >= pixls[n].end_frame)
             {
-              dyn_pixls[n].frame = 0;
-              if (dyn_pixls[n].brightness == 0)
-                dyn_pixls[n].anim = on;
+              pixls[n].frame = 0;
+              if (pixls[n].brightness == 0)
+                pixls[n].anim = on;
               else
-                dyn_pixls[n].anim = off;
+                pixls[n].anim = off;
             }
           break;
         case on:
 #ifdef DEBUG
           printf ("on pixl %u\n", n);
 #endif
-          do_on (&dyn_pixls[n]);
-          dyn_pixls[n].frame = 0;
-          dyn_pixls[n].anim = wait;
+          do_on (&pixls[n]);
+          pixls[n].frame = 0;
+          pixls[n].anim = wait;
           break;
         case off:
 #ifdef DEBUG
           printf ("off pixl %u\n", n);
 #endif
-          do_off (&dyn_pixls[n]);
-          dyn_pixls[n].frame = 0;
-          dyn_pixls[n].frame = wait;
+          do_off (&pixls[n]);
+          pixls[n].frame = 0;
+          pixls[n].anim = wait;
           break;
         }
     }
