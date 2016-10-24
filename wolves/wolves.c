@@ -141,7 +141,18 @@ void
 random_anim (dyn_pixl * pixl)
 {
   pixl->frame = 0;
-  pixl->anim = (animation) random_at_most (2);
+  switch (random_at_most (2))
+    {
+    case 0:
+      pixl->anim = wait;
+      break;
+    case 1:
+      pixl->anim = on;
+      break;
+    case 2:
+      pixl->anim = off;
+      break;
+    }
   pixl->end_frame = (int) random_at_most (6);
   return;
 }
