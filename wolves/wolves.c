@@ -6,7 +6,8 @@
 #include <stdio.h>
 #endif
 
-typedef enum { WAIT, ON, OFF } animation;
+typedef enum
+{ WAIT, ON, OFF } animation;
 
 typedef struct
 {
@@ -179,13 +180,6 @@ void
 do_off (dyn_pixl * pixl)
 {
   pixl->brightness = 0;
-
-  return;
-}
-
-void
-do_glow (dyn_pixl * pixl)
-{
 
   return;
 }
