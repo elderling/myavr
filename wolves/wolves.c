@@ -6,8 +6,7 @@
 #include <stdio.h>
 #endif
 
-typedef enum
-{ wait, on, off } animation;
+typedef enum { WAIT, ON, OFF } animation;
 
 typedef struct
 {
@@ -40,7 +39,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    0,                           // brightness
    0,                           // frame
    2,                           // end_frame
-   wait                         // anim
+   WAIT                         // anim
    }
   ,
   {127,                         // red
@@ -49,7 +48,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    0,                           // brightness
    0,                           // frame
    2,                           // end_frame
-   wait                         // anim
+   WAIT                         // anim
    }
   ,
   {255,                         // red
@@ -58,7 +57,7 @@ dyn_pixl dyn_pixls[NUMBER_OF_PIXLS] = {
    0,                           // brightness
    0,                           // frame
    2,                           // end_frame
-   wait                         // anim
+   WAIT                         // anim
    }
 };
 
@@ -107,7 +106,7 @@ update_pixls (dyn_pixl pixls[])
     {
       switch (pixls[n].anim)
         {
-        case wait:
+        case WAIT:
 #ifdef DEBUG
           printf ("wait pixl %u\n", n);
 #endif
@@ -118,14 +117,14 @@ update_pixls (dyn_pixl pixls[])
               random_anim (&pixls[n]);
             }
           break;
-        case on:
+        case ON:
 #ifdef DEBUG
           printf ("on pixl %u\n", n);
 #endif
           do_on (&pixls[n]);
           random_anim (&pixls[n]);
           break;
-        case off:
+        case OFF:
 #ifdef DEBUG
           printf ("off pixl %u\n", n);
 #endif
@@ -144,13 +143,13 @@ random_anim (dyn_pixl * pixl)
   switch (random_at_most (2))
     {
     case 0:
-      pixl->anim = wait;
+      pixl->anim = WAIT;
       break;
     case 1:
-      pixl->anim = on;
+      pixl->anim = ON;
       break;
     case 2:
-      pixl->anim = off;
+      pixl->anim = OFF;
       break;
     }
   pixl->end_frame = (int) random_at_most (6);
