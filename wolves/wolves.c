@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include "pixls.h"
 
 #define NUMBER_OF_PIXLS 3
@@ -11,20 +12,17 @@ void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 int
 main (int argc, char **argv)
 {
-  dyn_pixl pixl  = {
-    255,                       // red
-     255,                       // green
-     255,                       // blue
-     0,                         // brightness
-     0,                         // frame
-     2,                         // end_frame
-     WAIT                       // anim
+  dyn_pixl pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0,                          // brightness
+    0,                          // frame
+    2,                          // end_frame
+    WAIT                        // anim
   };
 
-  int n;
-  for (n = 0; n < TOTAL_FRAMES; n++)
-    {
-    }
+  render_pixl(&pixl);
 }
 
 
@@ -32,8 +30,15 @@ void
 render_pixl (dyn_pixl * pixl)
 {
 
+  printf
+    ("red-> %u\ngreen-> %u\nblue-> %u\nbrightness-> %f\nframe-> %u\nend_frame-> %u\nanim-> %u\n",
+     pixl->red,
+     pixl->green,
+     pixl->blue, pixl->brightness, pixl->frame, pixl->end_frame, pixl->anim);
   return;
 }
+
+
 void
 render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
 {
@@ -41,9 +46,7 @@ render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
   for (n = 0; n < number_of_pixls; n++)
     {
       render_pixl (&pixls[n]);
-
     }
 
   return;
 }
-
