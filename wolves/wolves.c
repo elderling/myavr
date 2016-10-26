@@ -39,11 +39,7 @@ main (int argc, char **argv)
   int n;
   for (n = 0; n < TOTAL_FRAMES; n++)
     {
-#ifdef DEBUG
-      printf ("main frame: %u\n", n);
-#endif
       update_pixls (dyn_pixls, NUMBER_OF_PIXLS);
       render_pixls (dyn_pixls, NUMBER_OF_PIXLS);
     }
 }
-

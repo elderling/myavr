@@ -1,30 +1,15 @@
 #include <stdlib.h>
 #include "pixls.h"
 
-#define DEBUG 1
-#ifdef DEBUG
-#include <stdio.h>
-#endif
-
 void
 render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
 {
   unsigned char n;
   for (n = 0; n < number_of_pixls; n++)
     {
-#ifdef DEBUG
-      printf ("Rendering dyn_pixl %u : ", n);
-#endif
       render_pixl (&pixls[n]);
 
-#ifdef DEBUG
-      printf ("\n");
-#endif
     }
-
-#ifdef DEBUG
-  printf ("\n");
-#endif
 
   return;
 }
@@ -38,10 +23,6 @@ update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
       switch (pixls[n].anim)
         {
         case WAIT:
-#ifdef DEBUG
-          printf ("wait pixl %u\n", n);
-#endif
-
           do_wait (&pixls[n]);
           if (pixls[n].frame >= pixls[n].end_frame)
             {
@@ -49,21 +30,16 @@ update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
             }
           break;
         case ON:
-#ifdef DEBUG
-          printf ("on pixl %u\n", n);
-#endif
           do_on (&pixls[n]);
           random_anim (&pixls[n]);
           break;
         case OFF:
-#ifdef DEBUG
-          printf ("off pixl %u\n", n);
-#endif
           do_off (&pixls[n]);
           random_anim (&pixls[n]);
           break;
         }
     }
+
   return;
 }
 
@@ -117,16 +93,6 @@ do_off (dyn_pixl * pixl)
 void
 render_pixl (dyn_pixl * pixl)
 {
-
-#ifdef DEBUG
-  //printf (" red: %u", pixl->red);
-  //printf (", green: %u", pixl->green);
-  //printf (", blue: %u", pixl->blue);
-  printf (", brightness: %f", pixl->brightness);
-  printf (", frame: %u", pixl->frame);
-  printf (", end_frame: %u", pixl->end_frame);
-  printf (", anim: %u", pixl->anim);
-#endif
 
   return;
 }
