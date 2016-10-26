@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "pixls.h"
 
-#define NUMBER_OF_PIXLS 3
 #define TOTAL_FRAMES  100
 
 
@@ -23,17 +22,32 @@ main (int argc, char **argv)
     WAIT                        // anim
   };
 
-  //render_pixl(&pixl);
+  dyn_pixl end_pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0,                          // brightness
+    2,                          // frame
+    2,                          // end_frame
+    WAIT                        // anim
+  };
+
+  test_compare_pixl ();
 
   int n;
-  for (n = 0; n < NUMBER_OF_PIXLS; n++)
+  for (n = 0; n < TOTAL_FRAMES; n++)
     {
       update_pixl (&pixl);
     }
 
-  //render_pixl(&pixl);
-
-  test_compare_pixl ();
+  if (compare_pixl (&pixl, &end_pixl))
+    {
+      printf ("WAIT PASS\n");
+    }
+  else
+    {
+      printf ("WAIT FAIL\n");
+    }
 }
 
 void
