@@ -15,10 +15,8 @@ typedef struct
 void do_wait (dyn_pixl * pixl);
 void do_on (dyn_pixl * pixl);
 void do_off (dyn_pixl * pixl);
-void render_pixl (dyn_pixl * pixl);
 void update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
-void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void random_anim (dyn_pixl * pixl);
 long random_at_most (long max);
-
-
+void update_pixl (dyn_pixl * pixl);
+int compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b);

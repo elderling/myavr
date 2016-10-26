@@ -8,6 +8,7 @@
 
 void render_pixl (dyn_pixl * pixl);
 void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
+void test_compare_pixl ();
 
 int
 main (int argc, char **argv)
@@ -22,7 +23,69 @@ main (int argc, char **argv)
     WAIT                        // anim
   };
 
-  render_pixl(&pixl);
+  //render_pixl(&pixl);
+
+  int n;
+  for (n = 0; n < NUMBER_OF_PIXLS; n++)
+    {
+      update_pixl (&pixl);
+    }
+
+  //render_pixl(&pixl);
+
+  test_compare_pixl ();
+}
+
+void
+test_compare_pixl ()
+{
+  dyn_pixl pixla = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0,                          // brightness
+    0,                          // frame
+    2,                          // end_frame
+    WAIT                        // anim
+  };
+
+  dyn_pixl pixlb = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0,                          // brightness
+    0,                          // frame
+    2,                          // end_frame
+    WAIT                        // anim
+  };
+
+  dyn_pixl pixlc = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    1,                          // brightness
+    0,                          // frame
+    2,                          // end_frame
+    WAIT                        // anim
+  };
+
+  if (compare_pixl (&pixla, &pixlb))
+    {
+      printf ("compare_pixl() equals test PASS\n");
+    }
+  else
+    {
+      printf ("compare_pixl() equals test FAIL\n");
+    }
+
+  if (!compare_pixl (&pixla, &pixlc))
+    {
+      printf ("compare_pixl() NOT equals test PASS\n");
+    }
+  else
+    {
+      printf ("compare_pixl() NOT equals test FAIL\n");
+    }
 }
 
 

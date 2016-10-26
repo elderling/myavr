@@ -17,7 +17,10 @@ update_pixl (dyn_pixl * pixl)
       break;
     }
 
-  pixl->frame++;
+  if (pixl->frame < pixl->end_frame)
+    {
+      pixl->frame++;
+    }
   return;
 }
 
@@ -27,7 +30,7 @@ update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
   unsigned char n;
   for (n = 0; n < number_of_pixls; n++)
     {
-      update_pixl( &pixls[n] );
+      update_pixl (&pixls[n]);
     }
 
   return;
@@ -55,6 +58,23 @@ do_off (dyn_pixl * pixl)
   return;
 }
 
+int
+compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
+{
+  if (pixl_a->red == pixl_b->red
+      && pixl_a->green == pixl_b->green
+      && pixl_a->blue == pixl_b->blue
+      && pixl_a->brightness == pixl_b->brightness
+      && pixl_a->frame == pixl_b->frame
+      && pixl_a->end_frame == pixl_b->end_frame)
+    {
+      return 1;
+    }
+  else
+    {
+      return 0;
+    }
+}
 
 // From http://stackoverflow.com/questions/2509679/how-to-generate-a-random-number-from-within-a-range#6852396
 // Assumes 0 <= max <= RAND_MAX
