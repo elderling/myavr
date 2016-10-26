@@ -2,15 +2,22 @@
 #include "pixls.h"
 
 void
-render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
+update_pixl (dyn_pixl * pixl)
 {
-  unsigned char n;
-  for (n = 0; n < number_of_pixls; n++)
+  switch (pixl->anim)
     {
-      render_pixl (&pixls[n]);
-
+    case WAIT:
+      do_wait (pixl);
+      break;
+    case ON:
+      do_on (pixl);
+      break;
+    case OFF:
+      do_off (pixl);
+      break;
     }
 
+  pixl->frame++;
   return;
 }
 
@@ -20,57 +27,15 @@ update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
   unsigned char n;
   for (n = 0; n < number_of_pixls; n++)
     {
-      switch (pixls[n].anim)
-        {
-        case WAIT:
-          do_wait (&pixls[n]);
-          if (pixls[n].frame >= pixls[n].end_frame)
-            {
-              random_anim (&pixls[n]);
-            }
-          break;
-        case ON:
-          do_on (&pixls[n]);
-          random_anim (&pixls[n]);
-          break;
-        case OFF:
-          do_off (&pixls[n]);
-          random_anim (&pixls[n]);
-          break;
-        }
+      update_pixl( &pixls[n] );
     }
 
-  return;
-}
-
-void
-random_anim (dyn_pixl * pixl)
-{
-  pixl->frame = 0;
-  switch (random_at_most (2))
-    {
-    case 0:
-      pixl->anim = WAIT;
-      break;
-    case 1:
-      pixl->anim = ON;
-      break;
-    case 2:
-      pixl->anim = OFF;
-      break;
-    }
-  pixl->end_frame = (int) random_at_most (6);
   return;
 }
 
 void
 do_wait (dyn_pixl * pixl)
 {
-  if (pixl->frame < pixl->end_frame)
-    {
-      pixl->frame++;
-    }
-
   return;
 }
 
@@ -90,12 +55,6 @@ do_off (dyn_pixl * pixl)
   return;
 }
 
-void
-render_pixl (dyn_pixl * pixl)
-{
-
-  return;
-}
 
 // From http://stackoverflow.com/questions/2509679/how-to-generate-a-random-number-from-within-a-range#6852396
 // Assumes 0 <= max <= RAND_MAX
