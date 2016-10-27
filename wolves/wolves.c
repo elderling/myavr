@@ -13,6 +13,7 @@ void test_compare_pixl ();
 void test_wait ();
 void test_fade_in ();
 void test_fade_out ();
+void test_transition ();
 
 RGB white = { 255, 255, 255 };
 
@@ -24,6 +25,32 @@ main (int argc, char **argv)
   test_wait ();
   test_fade_in ();
   test_fade_out ();
+  test_transition ();
+}
+
+void
+test_transition ()
+{
+  dyn_pixl pixl = {
+    &white,
+    0,                          // brightness
+    0                           // frame
+  };
+
+  pixl.inst = get_prg_instruction (0);
+
+  int n;
+
+  for (n = 0; n < 299; n++)
+    {
+      printf
+        ("global frame: %u \t local frame %u \t anim: %u \t brightness: %f\n",
+         n, pixl.frame, pixl.inst->anim, pixl.brightness);
+      update_pixl (&pixl);
+    }
+
+  return;
+
 }
 
 void
@@ -182,11 +209,11 @@ render_pixl (dyn_pixl * pixl)
 {
 
   printf
-    ("red-> %u\ngreen-> %u\nblue-> %u\nbrightness-> %f\nframe-> %u\nend_frame-> %u\nanim-> %u\n",
+    ("red-> %u\ngreen-> %u\nblue-> %u\nbrightness-> %f\nframe-> %u\nend_frame-> %u\nanim-> %u\nprg_counter-> %u\n",
      pixl->rgb->red,
      pixl->rgb->green,
      pixl->rgb->blue, pixl->brightness, pixl->frame, pixl->inst->end_frame,
-     pixl->inst->anim);
+     pixl->inst->anim, pixl->prg_counter);
   return;
 }
 

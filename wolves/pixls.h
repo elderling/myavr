@@ -20,6 +20,7 @@ typedef struct
   double brightness;
   unsigned int frame;
   instruction *inst;
+  unsigned char prg_counter;
 } dyn_pixl;
 
 void do_wait (dyn_pixl * pixl);
@@ -29,3 +30,5 @@ void update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void random_anim (dyn_pixl * pixl);
 long random_at_most (long max);
 void update_pixl (dyn_pixl * pixl);
+void next_instruction (dyn_pixl * pixl);
+instruction *get_prg_instruction (unsigned char i);

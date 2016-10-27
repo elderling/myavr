@@ -1,6 +1,34 @@
 #include <stdlib.h>
 #include "pixls.h"
 
+#define TOTAL_PIXLS 3
+#define TOTAL_INSTRUCTIONS 3
+
+instruction program[TOTAL_INSTRUCTIONS] = {
+  FADE_IN, 100,
+  WAIT, 100,
+  FADE_OUT, 100
+};
+
+instruction *
+get_prg_instruction (unsigned char i)
+{
+  return &program[i];
+}
+
+void
+next_instruction (dyn_pixl * pixl)
+{
+
+  if (++pixl->prg_counter >= TOTAL_INSTRUCTIONS)
+    {
+      pixl->prg_counter = 0;
+    }
+  pixl->inst = &program[pixl->prg_counter];
+  return;
+}
+
+
 void
 update_pixl (dyn_pixl * pixl)
 {
@@ -20,6 +48,11 @@ update_pixl (dyn_pixl * pixl)
   if (pixl->frame < pixl->inst->end_frame)
     {
       pixl->frame++;
+    }
+  else
+    {
+      pixl->frame = 0;
+      next_instruction (pixl);
     }
   return;
 }
