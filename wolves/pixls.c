@@ -63,9 +63,9 @@ do_fade_out (dyn_pixl * pixl)
 int
 compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
 {
-  if (pixl_a->red == pixl_b->red
-      && pixl_a->green == pixl_b->green
-      && pixl_a->blue == pixl_b->blue
+  if (pixl_a->rgb->red == pixl_b->rgb->red
+      && pixl_a->rgb->green == pixl_b->rgb->green
+      && pixl_a->rgb->blue == pixl_b->rgb->blue
       && pixl_a->frame == pixl_b->frame
       && pixl_a->end_frame == pixl_b->end_frame)
     {

@@ -13,6 +13,8 @@ void test_wait ();
 void test_fade_in ();
 void test_fade_out ();
 
+RGB white = { 255, 255, 255 };
+
 int
 main (int argc, char **argv)
 {
@@ -27,9 +29,7 @@ void
 test_wait ()
 {
   dyn_pixl pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0,                          // brightness
     0,                          // frame
     2,                          // end_frame
@@ -37,9 +37,7 @@ test_wait ()
   };
 
   dyn_pixl end_pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0,                          // brightness
     2,                          // frame
     2,                          // end_frame
@@ -66,9 +64,7 @@ void
 test_fade_in ()
 {
   dyn_pixl pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0,                          // brightness
     0,                          // frame
     17,                         // end_frame
@@ -76,9 +72,7 @@ test_fade_in ()
   };
 
   dyn_pixl end_pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0.71,                       // brightness
     12,                         // frame
     17,                         // end_frame
@@ -107,9 +101,7 @@ void
 test_fade_out ()
 {
   dyn_pixl pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     1,                          // brightness
     0,                          // frame
     100,                        // end_frame
@@ -117,9 +109,7 @@ test_fade_out ()
   };
 
   dyn_pixl end_pixl = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0.25,                       // brightness
     75,                         // frame
     100,                        // end_frame
@@ -148,9 +138,7 @@ void
 test_compare_pixl ()
 {
   dyn_pixl pixla = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0,                          // brightness
     0,                          // frame
     2,                          // end_frame
@@ -158,9 +146,7 @@ test_compare_pixl ()
   };
 
   dyn_pixl pixlb = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     0,                          // brightness
     0,                          // frame
     2,                          // end_frame
@@ -168,9 +154,7 @@ test_compare_pixl ()
   };
 
   dyn_pixl pixlc = {
-    255,                        // red
-    255,                        // green
-    255,                        // blue
+    &white,
     1,                          // brightness
     0,                          // frame
     2,                          // end_frame
@@ -203,9 +187,10 @@ render_pixl (dyn_pixl * pixl)
 
   printf
     ("red-> %u\ngreen-> %u\nblue-> %u\nbrightness-> %f\nframe-> %u\nend_frame-> %u\nanim-> %u\n",
-     pixl->red,
-     pixl->green,
-     pixl->blue, pixl->brightness, pixl->frame, pixl->end_frame, pixl->anim);
+     pixl->rgb->red,
+     pixl->rgb->green,
+     pixl->rgb->blue, pixl->brightness, pixl->frame, pixl->end_frame,
+     pixl->anim);
   return;
 }
 

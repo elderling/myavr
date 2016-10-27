@@ -1,11 +1,15 @@
 typedef enum
 { WAIT, FADE_IN, FADE_OUT } animation;
 
-typedef struct
-{
+typedef struct {
   unsigned char red;
   unsigned char green;
   unsigned char blue;
+} RGB;
+
+typedef struct
+{
+  RGB * rgb;
   double brightness;
   unsigned int frame;
   unsigned int end_frame;
