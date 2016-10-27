@@ -8,9 +8,17 @@
 void render_pixl (dyn_pixl * pixl);
 void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void test_compare_pixl ();
+void test_wait ();
 
 int
-main (int argc, char **argv)
+main (int argc, char **argv) {
+
+  test_compare_pixl ();
+  test_wait ();
+}
+
+void
+test_wait ()
 {
   dyn_pixl pixl = {
     255,                        // red
@@ -31,8 +39,6 @@ main (int argc, char **argv)
     2,                          // end_frame
     WAIT                        // anim
   };
-
-  test_compare_pixl ();
 
   int n;
   for (n = 0; n < TOTAL_FRAMES; n++)

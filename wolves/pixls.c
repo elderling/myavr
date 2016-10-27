@@ -45,7 +45,7 @@ do_wait (dyn_pixl * pixl)
 void
 do_fade_in (dyn_pixl * pixl)
 {
-  pixl->brightness = 1;
+  pixl->brightness = (double) pixl->frame / pixl->end_frame;
 
   return;
 }
@@ -53,7 +53,7 @@ do_fade_in (dyn_pixl * pixl)
 void
 do_fade_out (dyn_pixl * pixl)
 {
-  pixl->brightness = 0;
+  pixl->brightness = (double)( pixl->end_frame - pixl->frame ) / pixl->end_frame;
 
   return;
 }
