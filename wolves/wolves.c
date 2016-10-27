@@ -11,6 +11,7 @@ void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void test_compare_pixl ();
 void test_wait ();
 void test_fade_in ();
+void test_fade_out ();
 
 int
 main (int argc, char **argv)
@@ -19,6 +20,7 @@ main (int argc, char **argv)
   test_compare_pixl ();
   test_wait ();
   test_fade_in ();
+  test_fade_out ();
 }
 
 void
@@ -96,6 +98,47 @@ test_fade_in ()
   else
     {
       printf ("FADE_IN FAIL: \n");
+      render_pixl (&pixl);
+
+    }
+}
+
+void
+test_fade_out ()
+{
+  dyn_pixl pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    1,                          // brightness
+    0,                          // frame
+    100,                        // end_frame
+    FADE_OUT                    // anim
+  };
+
+  dyn_pixl end_pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0.25,                       // brightness
+    75,                         // frame
+    100,                        // end_frame
+    FADE_OUT                    // anim
+  };
+
+  int n;
+  for (n = 0; n < 75; n++)
+    {
+      update_pixl (&pixl);
+    }
+
+  if (compare_pixl (&pixl, &end_pixl))
+    {
+      printf ("FADE_OUT PASS\n");
+    }
+  else
+    {
+      printf ("FADE_OUT FAIL: \n");
       render_pixl (&pixl);
 
     }
