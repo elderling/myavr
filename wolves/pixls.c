@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 #include "pixls.h"
 
 void
@@ -53,7 +54,8 @@ do_fade_in (dyn_pixl * pixl)
 void
 do_fade_out (dyn_pixl * pixl)
 {
-  pixl->brightness = (double)( pixl->end_frame - pixl->frame ) / pixl->end_frame;
+  pixl->brightness =
+    (double) (pixl->end_frame - pixl->frame) / pixl->end_frame;
 
   return;
 }
@@ -64,11 +66,17 @@ compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
   if (pixl_a->red == pixl_b->red
       && pixl_a->green == pixl_b->green
       && pixl_a->blue == pixl_b->blue
-      && pixl_a->brightness == pixl_b->brightness
       && pixl_a->frame == pixl_b->frame
       && pixl_a->end_frame == pixl_b->end_frame)
     {
-      return 1;
+      if (fabs (pixl_a->brightness - pixl_b->brightness) < 0.5)
+        {
+          return 1;
+        }
+      else
+        {
+          return 0;
+        }
     }
   else
     {

@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <math.h>
 #include "pixls.h"
 
 #define TOTAL_FRAMES  100
@@ -9,12 +10,15 @@ void render_pixl (dyn_pixl * pixl);
 void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void test_compare_pixl ();
 void test_wait ();
+void test_fade_in ();
 
 int
-main (int argc, char **argv) {
+main (int argc, char **argv)
+{
 
   test_compare_pixl ();
   test_wait ();
+  test_fade_in ();
 }
 
 void
@@ -53,6 +57,47 @@ test_wait ()
   else
     {
       printf ("WAIT FAIL\n");
+    }
+}
+
+void
+test_fade_in ()
+{
+  dyn_pixl pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0,                          // brightness
+    0,                          // frame
+    17,                         // end_frame
+    FADE_IN                     // anim
+  };
+
+  dyn_pixl end_pixl = {
+    255,                        // red
+    255,                        // green
+    255,                        // blue
+    0.71,                       // brightness
+    12,                         // frame
+    17,                         // end_frame
+    FADE_IN                     // anim
+  };
+
+  int n;
+  for (n = 0; n < 12; n++)
+    {
+      update_pixl (&pixl);
+    }
+
+  if (compare_pixl (&pixl, &end_pixl))
+    {
+      printf ("FADE_IN PASS\n");
+    }
+  else
+    {
+      printf ("FADE_IN FAIL: \n");
+      render_pixl (&pixl);
+
     }
 }
 
