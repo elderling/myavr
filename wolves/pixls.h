@@ -1,7 +1,8 @@
 typedef enum
 { WAIT, FADE_IN, FADE_OUT } animation;
 
-typedef struct {
+typedef struct
+{
   unsigned char red;
   unsigned char green;
   unsigned char blue;
@@ -9,11 +10,16 @@ typedef struct {
 
 typedef struct
 {
-  RGB * rgb;
+  animation anim;
+  unsigned int end_frame;
+} instruction;
+
+typedef struct
+{
+  RGB *rgb;
   double brightness;
   unsigned int frame;
-  unsigned int end_frame;
-  animation anim;
+  instruction *inst;
 } dyn_pixl;
 
 void do_wait (dyn_pixl * pixl);

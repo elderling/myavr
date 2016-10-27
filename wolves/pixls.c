@@ -4,7 +4,7 @@
 void
 update_pixl (dyn_pixl * pixl)
 {
-  switch (pixl->anim)
+  switch (pixl->inst->anim)
     {
     case WAIT:
       do_wait (pixl);
@@ -17,7 +17,7 @@ update_pixl (dyn_pixl * pixl)
       break;
     }
 
-  if (pixl->frame < pixl->end_frame)
+  if (pixl->frame < pixl->inst->end_frame)
     {
       pixl->frame++;
     }
@@ -45,7 +45,7 @@ do_wait (dyn_pixl * pixl)
 void
 do_fade_in (dyn_pixl * pixl)
 {
-  pixl->brightness = (double) pixl->frame / pixl->end_frame;
+  pixl->brightness = (double) pixl->frame / pixl->inst->end_frame;
 
   return;
 }
@@ -54,7 +54,7 @@ void
 do_fade_out (dyn_pixl * pixl)
 {
   pixl->brightness =
-    (double) (pixl->end_frame - pixl->frame) / pixl->end_frame;
+    (double) (pixl->inst->end_frame - pixl->frame) / pixl->inst->end_frame;
 
   return;
 }

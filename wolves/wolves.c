@@ -29,20 +29,19 @@ main (int argc, char **argv)
 void
 test_wait ()
 {
+  instruction the_inst = { WAIT, 2 };
   dyn_pixl pixl = {
     &white,
     0,                          // brightness
     0,                          // frame
-    2,                          // end_frame
-    WAIT                        // anim
+    &the_inst
   };
 
   dyn_pixl end_pixl = {
     &white,
     0,                          // brightness
     2,                          // frame
-    2,                          // end_frame
-    WAIT                        // anim
+    &the_inst
   };
 
   int n;
@@ -64,20 +63,19 @@ test_wait ()
 void
 test_fade_in ()
 {
+  instruction the_inst = { FADE_IN, 17 };
   dyn_pixl pixl = {
     &white,
     0,                          // brightness
     0,                          // frame
-    17,                         // end_frame
-    FADE_IN                     // anim
+    &the_inst
   };
 
   dyn_pixl end_pixl = {
     &white,
     0.71,                       // brightness
     12,                         // frame
-    17,                         // end_frame
-    FADE_IN                     // anim
+    &the_inst
   };
 
   int n;
@@ -101,20 +99,19 @@ test_fade_in ()
 void
 test_fade_out ()
 {
+  instruction the_inst = { FADE_OUT, 100 };
   dyn_pixl pixl = {
     &white,
     1,                          // brightness
     0,                          // frame
-    100,                        // end_frame
-    FADE_OUT                    // anim
+    &the_inst
   };
 
   dyn_pixl end_pixl = {
     &white,
     0.25,                       // brightness
     75,                         // frame
-    100,                        // end_frame
-    FADE_OUT                    // anim
+    &the_inst
   };
 
   int n;
@@ -138,28 +135,26 @@ test_fade_out ()
 void
 test_compare_pixl ()
 {
+  instruction the_inst = { WAIT, 2 };
   dyn_pixl pixla = {
     &white,
     0,                          // brightness
     0,                          // frame
-    2,                          // end_frame
-    WAIT                        // anim
+    &the_inst
   };
 
   dyn_pixl pixlb = {
     &white,
     0,                          // brightness
     0,                          // frame
-    2,                          // end_frame
-    WAIT                        // anim
+    &the_inst
   };
 
   dyn_pixl pixlc = {
     &white,
     1,                          // brightness
     0,                          // frame
-    2,                          // end_frame
-    WAIT                        // anim
+    &the_inst
   };
 
   if (compare_pixl (&pixla, &pixlb))
@@ -190,8 +185,8 @@ render_pixl (dyn_pixl * pixl)
     ("red-> %u\ngreen-> %u\nblue-> %u\nbrightness-> %f\nframe-> %u\nend_frame-> %u\nanim-> %u\n",
      pixl->rgb->red,
      pixl->rgb->green,
-     pixl->rgb->blue, pixl->brightness, pixl->frame, pixl->end_frame,
-     pixl->anim);
+     pixl->rgb->blue, pixl->brightness, pixl->frame, pixl->inst->end_frame,
+     pixl->inst->anim);
   return;
 }
 
@@ -215,7 +210,7 @@ compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
       && pixl_a->rgb->green == pixl_b->rgb->green
       && pixl_a->rgb->blue == pixl_b->rgb->blue
       && pixl_a->frame == pixl_b->frame
-      && pixl_a->end_frame == pixl_b->end_frame)
+      && pixl_a->inst->end_frame == pixl_b->inst->end_frame)
     {
       if (fabs (pixl_a->brightness - pixl_b->brightness) < 0.5)
         {
@@ -231,4 +226,3 @@ compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
       return 0;
     }
 }
-
