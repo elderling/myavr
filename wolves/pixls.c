@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <math.h>
 #include "pixls.h"
 
 void
@@ -58,30 +57,6 @@ do_fade_out (dyn_pixl * pixl)
     (double) (pixl->end_frame - pixl->frame) / pixl->end_frame;
 
   return;
-}
-
-int
-compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
-{
-  if (pixl_a->rgb->red == pixl_b->rgb->red
-      && pixl_a->rgb->green == pixl_b->rgb->green
-      && pixl_a->rgb->blue == pixl_b->rgb->blue
-      && pixl_a->frame == pixl_b->frame
-      && pixl_a->end_frame == pixl_b->end_frame)
-    {
-      if (fabs (pixl_a->brightness - pixl_b->brightness) < 0.5)
-        {
-          return 1;
-        }
-      else
-        {
-          return 0;
-        }
-    }
-  else
-    {
-      return 0;
-    }
 }
 
 // From http://stackoverflow.com/questions/2509679/how-to-generate-a-random-number-from-within-a-range#6852396

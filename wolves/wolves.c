@@ -6,6 +6,7 @@
 #define TOTAL_FRAMES  100
 
 
+int compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b);
 void render_pixl (dyn_pixl * pixl);
 void render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void test_compare_pixl ();
@@ -206,3 +207,28 @@ render_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
 
   return;
 }
+
+int
+compare_pixl (dyn_pixl * pixl_a, dyn_pixl * pixl_b)
+{
+  if (pixl_a->rgb->red == pixl_b->rgb->red
+      && pixl_a->rgb->green == pixl_b->rgb->green
+      && pixl_a->rgb->blue == pixl_b->rgb->blue
+      && pixl_a->frame == pixl_b->frame
+      && pixl_a->end_frame == pixl_b->end_frame)
+    {
+      if (fabs (pixl_a->brightness - pixl_b->brightness) < 0.5)
+        {
+          return 1;
+        }
+      else
+        {
+          return 0;
+        }
+    }
+  else
+    {
+      return 0;
+    }
+}
+
