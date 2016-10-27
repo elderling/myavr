@@ -1,5 +1,5 @@
 typedef enum
-{ WAIT, ON, OFF } animation;
+{ WAIT, FADE_IN, FADE_OUT } animation;
 
 typedef struct
 {
@@ -13,8 +13,8 @@ typedef struct
 } dyn_pixl;
 
 void do_wait (dyn_pixl * pixl);
-void do_on (dyn_pixl * pixl);
-void do_off (dyn_pixl * pixl);
+void do_fade_in (dyn_pixl * pixl);
+void do_fade_out (dyn_pixl * pixl);
 void update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls);
 void random_anim (dyn_pixl * pixl);
 long random_at_most (long max);

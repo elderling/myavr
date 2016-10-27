@@ -9,11 +9,11 @@ update_pixl (dyn_pixl * pixl)
     case WAIT:
       do_wait (pixl);
       break;
-    case ON:
-      do_on (pixl);
+    case FADE_IN:
+      do_fade_in (pixl);
       break;
-    case OFF:
-      do_off (pixl);
+    case FADE_OUT:
+      do_fade_out (pixl);
       break;
     }
 
@@ -43,7 +43,7 @@ do_wait (dyn_pixl * pixl)
 }
 
 void
-do_on (dyn_pixl * pixl)
+do_fade_in (dyn_pixl * pixl)
 {
   pixl->brightness = 1;
 
@@ -51,7 +51,7 @@ do_on (dyn_pixl * pixl)
 }
 
 void
-do_off (dyn_pixl * pixl)
+do_fade_out (dyn_pixl * pixl)
 {
   pixl->brightness = 0;
 
