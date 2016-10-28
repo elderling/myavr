@@ -23,6 +23,9 @@ typedef struct
   unsigned char prg_counter;
 } dyn_pixl;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 void do_wait (dyn_pixl * pixl);
 void do_fade_in (dyn_pixl * pixl);
 void do_fade_out (dyn_pixl * pixl);
@@ -32,3 +35,6 @@ long random_at_most (long max);
 void update_pixl (dyn_pixl * pixl);
 void next_instruction (dyn_pixl * pixl);
 instruction *get_prg_instruction (unsigned char i);
+#ifdef __cplusplus
+}
+#endif
