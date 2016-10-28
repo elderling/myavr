@@ -28,7 +28,7 @@ loop ()
 {
   unsigned char red, green, blue;
 
-  update_pixl(pixl);
+  update_pixl(&pixl);
 
   red = (unsigned char) pixl.brightness * 255;
   green = (unsigned char) pixl.brightness * 255;
@@ -40,6 +40,7 @@ loop ()
   // put your main code here, to run repeatedly:
   delay(10);
 }
+/*
 void
 render_pixls (dyn_pixl pixls[])
 {
@@ -58,4 +59,5 @@ render_pixls (dyn_pixl pixls[])
   strip.show ();
   return;
 }
+*/
 
