@@ -20,6 +20,21 @@ get_prg_instruction (unsigned char i)
 void
 update_pixl (dyn_pixl * pixl)
 {
+  if (pixl->frame < pixl->inst->end_frame)
+    {
+      pixl->frame++;
+    }
+  else
+    {
+      pixl->frame = 0;
+      if (++pixl->prg_counter >= TOTAL_INSTRUCTIONS)
+        {
+          return;
+          // pixl->prg_counter = 0;
+        }
+      pixl->inst = &program[pixl->prg_counter];
+    }
+
   switch (pixl->inst->anim)
     {
     case WAIT:
@@ -33,19 +48,6 @@ update_pixl (dyn_pixl * pixl)
       break;
     }
 
-  if (pixl->frame < pixl->inst->end_frame)
-    {
-      pixl->frame++;
-    }
-  else
-    {
-      pixl->frame = 0;
-      if (++pixl->prg_counter >= TOTAL_INSTRUCTIONS)
-        {
-          pixl->prg_counter = 0;
-        }
-      pixl->inst = &program[pixl->prg_counter];
-    }
   return;
 }
 
