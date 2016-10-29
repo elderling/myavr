@@ -18,19 +18,6 @@ get_prg_instruction (unsigned char i)
 }
 
 void
-next_instruction (dyn_pixl * pixl)
-{
-
-  if (++pixl->prg_counter >= TOTAL_INSTRUCTIONS)
-    {
-      pixl->prg_counter = 0;
-    }
-  pixl->inst = &program[pixl->prg_counter];
-  return;
-}
-
-
-void
 update_pixl (dyn_pixl * pixl)
 {
   switch (pixl->inst->anim)
@@ -53,7 +40,11 @@ update_pixl (dyn_pixl * pixl)
   else
     {
       pixl->frame = 0;
-      next_instruction (pixl);
+      if (++pixl->prg_counter >= TOTAL_INSTRUCTIONS)
+        {
+          pixl->prg_counter = 0;
+        }
+      pixl->inst = &program[pixl->prg_counter];
     }
   return;
 }
