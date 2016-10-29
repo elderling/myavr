@@ -9,6 +9,7 @@ Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
 RGB white = { 255, 0, 0 };
 
+#define TOTAL_INSTRUCTIONS 4
 #define NUM_PIXLS 8
 dyn_pixl pixls[NUM_PIXLS];
 
@@ -22,7 +23,8 @@ setup ()
       pixls[i].rgb = &white;
       pixls[i].frame = 0;
       pixls[i].brightness = 0;
-      pixls[i].inst = get_prg_instruction (0);
+      pixls[i].inst = get_prg_instruction (i % TOTAL_INSTRUCTIONS);
+      pixls[i].prg_counter = (i % TOTAL_INSTRUCTIONS);
     }
   return;
 }
