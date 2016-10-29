@@ -7,7 +7,7 @@
 Adafruit_NeoPixel strip =
 Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
-RGB white = { 255, 0, 0 };
+RGB red = { 64, 0, 0 };
 
 #define TOTAL_INSTRUCTIONS 4
 #define NUM_PIXLS 8
@@ -18,13 +18,19 @@ setup ()
 {
   strip.begin ();
   int i;
-  for (i = 0; i < NUM_PIXLS; i++)
+  for (i = 0; i < NUM_PIXLS/2; i++  )
     {
-      pixls[i].rgb = &white;
-      pixls[i].frame = 0;
-      pixls[i].brightness = 0;
-      pixls[i].inst = get_prg_instruction (i % TOTAL_INSTRUCTIONS);
-      pixls[i].prg_counter = (i % TOTAL_INSTRUCTIONS);
+      pixls[i*2].rgb = &red;
+      pixls[i*2].frame = 0;
+      pixls[i*2].brightness = 0;
+      pixls[i*2].inst = get_prg_instruction (i % TOTAL_INSTRUCTIONS);
+      pixls[i*2].prg_counter = (i % TOTAL_INSTRUCTIONS);
+
+      pixls[i*2+1].rgb = &red;
+      pixls[i*2+1].frame = 0;
+      pixls[i*2+1].brightness = 0;
+      pixls[i*2+1].inst = get_prg_instruction (i % TOTAL_INSTRUCTIONS);
+      pixls[i*2+1].prg_counter = (i % TOTAL_INSTRUCTIONS);
     }
   return;
 }
