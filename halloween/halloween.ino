@@ -2,12 +2,12 @@
 #include "pixls.h"
 
 #define NUMBER_OF_PIXLS 1
-#define PIN 6
+#define PIN 1
 
 Adafruit_NeoPixel strip =
 Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
-RGB white = { 255, 255, 255 };
+RGB white = { 255, 0, 0 };
 
 dyn_pixl pixl; 
 
@@ -30,9 +30,9 @@ loop ()
 
   update_pixl(&pixl);
 
-  red = (unsigned char) pixl.brightness * 255;
-  green = (unsigned char) pixl.brightness * 255;
-  blue = (unsigned char) pixl.brightness * 255;
+  red = pixl.brightness * pixl.rgb->red;
+  green =  pixl.brightness * pixl.rgb->green;
+  blue =  pixl.brightness * pixl.rgb->blue;
 
       strip.setPixelColor (0, strip.Color (red, green, blue));
   strip.show ();
