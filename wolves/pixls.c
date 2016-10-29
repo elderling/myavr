@@ -2,12 +2,13 @@
 #include "pixls.h"
 
 #define TOTAL_PIXLS 3
-#define TOTAL_INSTRUCTIONS 3
+#define TOTAL_INSTRUCTIONS 4
 
 instruction program[TOTAL_INSTRUCTIONS] = {
   FADE_IN, 100,
   WAIT, 100,
-  FADE_OUT, 100
+  FADE_OUT, 100,
+  WAIT, 100
 };
 
 instruction *

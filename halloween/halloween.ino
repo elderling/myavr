@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #include "pixls.h"
 
-#define NUMBER_OF_PIXLS 1
+#define NUMBER_OF_PIXLS 8
 #define PIN 1
 
 Adafruit_NeoPixel strip =
@@ -9,17 +9,21 @@ Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
 RGB white = { 255, 0, 0 };
 
-dyn_pixl pixl; 
+#define NUM_PIXLS 8
+dyn_pixl pixls[NUM_PIXLS];
 
 void
 setup ()
 {
   strip.begin ();
-  pixl.rgb = &white;
-  pixl.frame = 0;
-  pixl.brightness = 0;
-  pixl.inst = get_prg_instruction(0);
-
+  int i;
+  for (i = 0; i < NUM_PIXLS; i++)
+    {
+      pixls[i].rgb = &white;
+      pixls[i].frame = 0;
+      pixls[i].brightness = 0;
+      pixls[i].inst = get_prg_instruction (0);
+    }
   return;
 }
 
@@ -28,36 +32,19 @@ loop ()
 {
   unsigned char red, green, blue;
 
-  update_pixl(&pixl);
-
-  red = pixl.brightness * pixl.rgb->red;
-  green =  pixl.brightness * pixl.rgb->green;
-  blue =  pixl.brightness * pixl.rgb->blue;
-
-      strip.setPixelColor (0, strip.Color (red, green, blue));
-  strip.show ();
-  
-  // put your main code here, to run repeatedly:
-  delay(10);
-}
-/*
-void
-render_pixls (dyn_pixl pixls[])
-{
-  unsigned char red, green, blue;
-  unsigned char n;
-  for (n = 0; n < NUMBER_OF_PIXLS; n++)
+  int i;
+  for (i = 0; i < NUM_PIXLS; i++)
     {
-      red = pixls[n].red ;
-      green = pixls[n].green;
-      blue = pixls[n].blue;
+      update_pixl (&pixls[i]);
 
-      strip.setPixelColor (n, strip.Color (red, green, blue));
+      red = pixls[i].brightness * pixls[i].rgb->red;
+      green = pixls[i].brightness * pixls[i].rgb->green;
+      blue = pixls[i].brightness * pixls[i].rgb->blue;
 
+      strip.setPixelColor (i, strip.Color (red, green, blue));
     }
-
   strip.show ();
-  return;
-}
-*/
 
+  // put your main code here, to run repeatedly:
+  delay (10);
+}
