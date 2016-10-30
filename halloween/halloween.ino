@@ -9,6 +9,9 @@ Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
 RGB red = { 64, 0, 0 };
 RGB green = { 0, 64, 0 };
+RGB black = { 0, 0, 0 };
+
+int location = 0;
 
 #define TOTAL_INSTRUCTIONS 4
 #define NUM_PIXLS 8
@@ -28,15 +31,20 @@ init_pixls ()
 {
   int i;
   for (i = 0; i < NUM_PIXLS; i++) {
-      pixls[i].rgb = &green;
+      pixls[i].rgb = &black;
       pixls[i].frame = 0;
       pixls[i].brightness = 0;
       pixls[i].inst = get_prg_instruction (0);
       pixls[i].prg_counter = 0;
   }
-    
-  //int randm = random_at_most(7);
-  for (i = 0; i <= 4; i++)
+   int randm ; 
+    do { 
+  randm = random() % NUM_PIXLS;
+    }
+    while ( randm ==  location);
+    location = randm;
+  //int randm = 4;
+  for (i = randm; i == randm; i++)
     {
       pixls[i].rgb = &red;
       pixls[i].frame = 0;
@@ -53,7 +61,7 @@ loop ()
   unsigned char red, green, blue;
 
   int n, i;
-  for (n = 0; n < 450; n++)
+  for (n = 0; n < 400; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {
