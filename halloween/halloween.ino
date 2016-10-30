@@ -13,7 +13,7 @@ RGB black = { 0, 0, 0 };
 
 int location = 0;
 
-#define TOTAL_INSTRUCTIONS 4
+#define TOTAL_INSTRUCTIONS 12 
 #define NUM_PIXLS 8
 dyn_pixl pixls[NUM_PIXLS];
 
@@ -39,12 +39,12 @@ init_pixls ()
   }
    int randm ; 
     do { 
-  randm = random() % NUM_PIXLS;
+  randm = (random() % (NUM_PIXLS - 1)) ;
     }
     while ( randm ==  location);
     location = randm;
   //int randm = 4;
-  for (i = randm; i == randm; i++)
+  for (i = randm; i <= randm + 1; i++)
     {
       pixls[i].rgb = &red;
       pixls[i].frame = 0;
@@ -61,7 +61,7 @@ loop ()
   unsigned char red, green, blue;
 
   int n, i;
-  for (n = 0; n < 400; n++)
+  for (n = 0; n < 520; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {
@@ -76,7 +76,7 @@ loop ()
       strip.show ();
 
       // put your main code here, to run repeatedly:
-      delay (10);
+      delay (50);
     }
 
   init_pixls ();
