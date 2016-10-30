@@ -13,7 +13,7 @@ RGB black = { 0, 0, 0 };
 
 int location = 0;
 
-#define TOTAL_INSTRUCTIONS 12 
+#define TOTAL_INSTRUCTIONS 16 
 #define NUM_PIXLS 8
 dyn_pixl pixls[NUM_PIXLS];
 
@@ -61,7 +61,7 @@ loop ()
   unsigned char red, green, blue;
 
   int n, i;
-  for (n = 0; n < 520; n++)
+  for (n = 0; n < 700; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {
