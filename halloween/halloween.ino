@@ -7,7 +7,7 @@
 Adafruit_NeoPixel strip =
 Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
-RGB red = { 64, 0, 0 };
+RGB red = { 255, 0, 0 };
 RGB green = { 0, 64, 0 };
 RGB black = { 0, 0, 0 };
 
@@ -61,7 +61,7 @@ loop ()
   unsigned char red, green, blue;
 
   int n, i;
-  for (n = 0; n < 650; n++)
+  for (n = 0; n < 550; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {

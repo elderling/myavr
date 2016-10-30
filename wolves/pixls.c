@@ -18,8 +18,8 @@ instruction program[TOTAL_INSTRUCTIONS] = {
   WAIT, 1,
   FADE_IN, 3,
   WAIT, 50,
-  FADE_OUT, 100,
-  WAIT, 100
+  FADE_OUT, 30,
+  WAIT, 50 
 };
 
 instruction *
