@@ -61,7 +61,7 @@ loop ()
   unsigned char red, green, blue;
 
   int n, i;
-  for (n = 0; n < 700; n++)
+  for (n = 0; n < 650; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {
