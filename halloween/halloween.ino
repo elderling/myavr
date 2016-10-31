@@ -2,10 +2,10 @@
 #include "pixls.h"
 
 #define PIN 1
-#define NUM_PIXLS 8
+#define NUM_PIXLS 20
 
 Adafruit_NeoPixel strip =
-Adafruit_NeoPixel (NUM_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel (NUM_PIXLS, PIN, NEO_RGB + NEO_KHZ800);
 
 RGB red = { 255, 0, 0 };
 RGB black = { 0, 0, 0 };
