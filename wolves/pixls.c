@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "pixls.h"
 
-#define TOTAL_PIXLS 3
 #define TOTAL_INSTRUCTIONS  16
 instruction program[TOTAL_INSTRUCTIONS] = {
   FADE_IN, 100,
@@ -63,7 +62,7 @@ update_pixl (dyn_pixl * pixl)
 }
 
 void
-update_pixls (dyn_pixl pixls[], unsigned int number_of_pixls)
+update_pixls (dyn_pixl pixls[], unsigned char number_of_pixls)
 {
   unsigned char n;
   for (n = 0; n < number_of_pixls; n++)
