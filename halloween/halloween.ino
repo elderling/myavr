@@ -1,11 +1,11 @@
 #include <Adafruit_NeoPixel.h>
 #include "pixls.h"
 
-#define NUMBER_OF_PIXLS 8
 #define PIN 1
+#define NUM_PIXLS 8
 
 Adafruit_NeoPixel strip =
-Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel (NUM_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
 RGB red = { 255, 0, 0 };
 RGB black = { 0, 0, 0 };
@@ -13,7 +13,6 @@ RGB black = { 0, 0, 0 };
 unsigned char location = 0;
 
 #define TOTAL_INSTRUCTIONS 16
-#define NUM_PIXLS 8
 dyn_pixl pixls[NUM_PIXLS];
 
 void init_pixls ();
