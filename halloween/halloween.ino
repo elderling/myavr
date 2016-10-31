@@ -8,12 +8,11 @@ Adafruit_NeoPixel strip =
 Adafruit_NeoPixel (NUMBER_OF_PIXLS, PIN, NEO_GRB + NEO_KHZ800);
 
 RGB red = { 255, 0, 0 };
-RGB green = { 0, 64, 0 };
 RGB black = { 0, 0, 0 };
 
-int location = 0;
+unsigned char location = 0;
 
-#define TOTAL_INSTRUCTIONS 16 
+#define TOTAL_INSTRUCTIONS 16
 #define NUM_PIXLS 8
 dyn_pixl pixls[NUM_PIXLS];
 
@@ -29,7 +28,7 @@ setup ()
 void
 init_pixls ()
 {
-  int i;
+  unsigned char i;
   for (i = 0; i < NUM_PIXLS; i++) {
       pixls[i].rgb = &black;
       pixls[i].frame = 0;
@@ -37,13 +36,12 @@ init_pixls ()
       pixls[i].inst = get_prg_instruction (0);
       pixls[i].prg_counter = 0;
   }
-   int randm ; 
+   unsigned char randm ; 
     do { 
   randm = (random() % (NUM_PIXLS - 1)) ;
     }
     while ( randm ==  location);
     location = randm;
-  //int randm = 4;
   for (i = randm; i <= randm + 1; i++)
     {
       pixls[i].rgb = &red;
@@ -58,20 +56,18 @@ init_pixls ()
 void
 loop ()
 {
-  unsigned char red, green, blue;
-
-  int n, i;
+  int n;
+  unsigned char i;
   for (n = 0; n < 550; n++)
     {
       for (i = 0; i < NUM_PIXLS; i++)
         {
           update_pixl (&pixls[i]);
-
-          red = pixls[i].brightness * pixls[i].rgb->red;
-          green = pixls[i].brightness * pixls[i].rgb->green;
-          blue = pixls[i].brightness * pixls[i].rgb->blue;
-
-          strip.setPixelColor (i, strip.Color (red, green, blue));
+          strip.setPixelColor (i, strip.Color (
+          (pixls[i].brightness * pixls[i].rgb->red),
+          (pixls[i].brightness * pixls[i].rgb->green),
+          (pixls[i].brightness * pixls[i].rgb->blue)
+          ));
         }
       strip.show ();
 
