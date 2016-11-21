@@ -1,92 +1,11 @@
-#include <Adafruit_NeoPixel.h>
+//#include <Adafruit_NeoPixel.h>
+#include <light_ws2812.h>
 #ifdef __AVR__
   #include <avr/pgmspace.h>
   #include <avr/power.h>
 #endif
 
-#define PIN 6
-
-/*
-
-  0xF0, 0x00, 0x00,
-  0x00, 0xF0, 0x00,
-  0x00, 0x00, 0xF0,
-  0xF0, 0x00, 0x00,
-  0x80, 0xF0, 0x80,
-  0x00, 0xF0, 0x00,
-  0x00, 0x00, 0x00,
-  0x10, 0x10, 0x10,
-
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0xff,
-  0x00, 0x00, 0x00,
-  0x00, 0x00, 0x00,
-};
-*/
+#define PIN 1
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -95,7 +14,9 @@
 //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(8, PIN, NEO_GRB + NEO_KHZ800);
+//Adafruit_NeoPixel strip = Adafruit_NeoPixel(8, PIN, NEO_GRB + NEO_KHZ800);
+
+struct cRGB leds[8];
 
 // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
 // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
@@ -201,198 +122,55 @@ void setup() {
   // End of trinket special code
 
 
-  strip.begin();
-  strip.show(); // Initialize all pixels to 'off'
+  //strip.begin();
+  //strip.show(); // Initialize all pixels to 'off'
 }
 
 void loop() {
-  // Some example procedures showing how to display to the pixels:
-  //colorWipe(strip.Color(255, 0, 0), 50); // Red
-  //colorWipe(strip.Color(0, 255, 0), 50); // Green
-  //colorWipe(strip.Color(0, 0, 255), 50); // Blue
-  
-  //colorWipe(strip.Color(64, 0, 0), 60); // Red
-  //colorWipe(strip.Color(0, 64, 0), 60); // Green
-  //colorWipe(strip.Color(0, 0, 64), 60); // Blue
-  // Send a theater pixel chase in...
-  //theaterChase(strip.Color(127, 127, 127), 50); // White
-  //theaterChase(strip.Color(127, 0, 0), 50); // Red
-  //theaterChase(strip.Color(0, 0, 127), 50); // Blue
-
-  //rainbow(20);
-  //rainbowCycle(20);
-  //theaterChaseRainbow(50);
-
-  //while (1) {
-  //KITT();
-  //}
-
     frame_player();
-    //delay(500);
 }
 
 void frame_player() {
 
     for (int frame = 0; frame < 8; frame++ ) {
-        for( int i = 0; i < strip.numPixels(); i++ ) {
+        //for( int i = 0; i < strip.numPixels(); i++ ) {
+        for( int i = 0; i < 8; i++ ) {
 
-            uint16_t red = pgm_read_word_near(&(some_pixels[frame][i][0]));
-            uint16_t green = pgm_read_word_near(&(some_pixels[frame][i][1]));
-            uint16_t blue = pgm_read_word_near(&(some_pixels[frame][i][2]));
+            uint8_t red = (uint8_t) pgm_read_word_near(&(some_pixels[frame][i][0]));
+            uint8_t green = (uint8_t) pgm_read_word_near(&(some_pixels[frame][i][1]));
+            uint8_t blue = (uint8_t) pgm_read_word_near(&(some_pixels[frame][i][2]));
 
-            strip.setPixelColor(i, strip.Color( red,green,blue ));
+            //strip.setPixelColor(i, strip.Color( red,green,blue ));
+            leds[i].r = red;
+            leds[i].g = green;
+            leds[i].b = blue;
+            ws2812_sendarray((uint8_t *)leds, 8*3);
         }
 
-        strip.show();
+        //strip.show();
         
         delay(50);
     }
 
     for (int frame = 7; frame >= 0; frame-- ) {
-        for( int i = 0; i < strip.numPixels(); i++ ) {
+        //for( int i = 0; i < strip.numPixels(); i++ ) {
+        for( int i = 0; i < 8; i++ ) {
 
-            uint16_t red = pgm_read_word_near(&(some_pixels[frame][i][0]));
-            uint16_t green = pgm_read_word_near(&(some_pixels[frame][i][1]));
-            uint16_t blue = pgm_read_word_near(&(some_pixels[frame][i][2]));
+            uint8_t red =   (uint8_t) pgm_read_word_near(&(some_pixels[frame][i][0]));
+            uint8_t green = (uint8_t) pgm_read_word_near(&(some_pixels[frame][i][1]));
+            uint8_t blue =  (uint8_t)  pgm_read_word_near(&(some_pixels[frame][i][2]));
 
-            strip.setPixelColor(i, strip.Color( red,green,blue ));
+            //strip.setPixelColor(i, strip.Color( red,green,blue ));
+            leds[i].r = red;
+            leds[i].g = green;
+            leds[i].b = blue;
+            ws2812_sendarray((uint8_t *)leds, 8*3);
         }
 
-        strip.show();
+        //strip.show();
         
         delay(50);
     }
 }
 
-/*
-void show_frame(int frame_number) {
-    for( int i = 0; i < strip.numPixels(); i++){
-        uint16_t red =   some_pixels[frame_number][i][0];
-        red = &(some_pixels[frame_number][i][0]);
-        red = pgm_read_word_near
 
-        uint16_t green = some_pixels[frame_number][i][1];
-        green = &(some_pixels[frame_number][i][1]);
-
-        uint16_t blue =  some_pixels[frame_number][i][2];
-        blue = &(some_pixels[frame_number][i][2]);
-    }
-}
-*/
-
-void KITT( ) {  
-  for( uint16_t i=0; i < strip.numPixels(); i++ ) {
-    for( uint16_t x= 0; x < strip.numPixels(); x++ ){
-      if ( x == i ) {
-         strip.setPixelColor(x, strip.Color(64, 0, 0));
-      }
-      else {
-        strip.setPixelColor(x, strip.Color(0, 0, 64));
-      }
-    }
-
-    strip.show();
-    delay(125);
-  }
-  
-    for( uint16_t i = strip.numPixels()-1; i > 0; --i ) {
-    for( uint16_t x = strip.numPixels(); x> 0;  x-- ){
-      if ( x == i ) {
-         strip.setPixelColor(x, strip.Color(64, 0, 0));
-      }
-      else {
-        strip.setPixelColor(x, strip.Color(0, 64, 0));
-      }
-    }
-
-    strip.show();
-    delay(125);
-  }
-
-  return;
-}
-
-// Fill the dots one after the other with a color
-void colorWipe(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip.numPixels(); i++) {
-    strip.setPixelColor(i, c);
-    strip.show();
-    delay(wait);
-  }
-}
-
-void rainbow(uint8_t wait) {
-  uint16_t i, j;
-
-  for(j=0; j<256; j++) {
-    for(i=0; i<strip.numPixels(); i++) {
-      strip.setPixelColor(i, Wheel((i+j) & 255));
-    }
-    strip.show();
-    delay(wait);
-  }
-}
-
-// Slightly different, this makes the rainbow equally distributed throughout
-void rainbowCycle(uint8_t wait) {
-  uint16_t i, j;
-
-  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
-    for(i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
-    }
-    strip.show();
-    delay(wait);
-  }
-}
-
-//Theatre-style crawling lights.
-void theaterChase(uint32_t c, uint8_t wait) {
-  for (int j=0; j<10; j++) {  //do 10 cycles of chasing
-    for (int q=0; q < 3; q++) {
-      for (int i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, c);    //turn every third pixel on
-      }
-      strip.show();
-
-      delay(wait);
-
-      for (int i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, 0);        //turn every third pixel off
-      }
-    }
-  }
-}
-
-//Theatre-style crawling lights with rainbow effect
-void theaterChaseRainbow(uint8_t wait) {
-  for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
-    for (int q=0; q < 3; q++) {
-      for (int i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
-      }
-      strip.show();
-
-      delay(wait);
-
-      for (int i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, 0);        //turn every third pixel off
-      }
-    }
-  }
-}
-
-// Input a value 0 to 255 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint32_t Wheel(byte WheelPos) {
-  WheelPos = 255 - WheelPos;
-  if(WheelPos < 85) {
-    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
-  }
-  if(WheelPos < 170) {
-    WheelPos -= 85;
-    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
-  }
-  WheelPos -= 170;
-  return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-}
