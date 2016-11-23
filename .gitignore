@@ -3,4 +3,5 @@
 *.c~
 *.h~
 *.ino~
+*.hex
 wolves/wolves
