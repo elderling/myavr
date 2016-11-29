@@ -1,0 +1,9 @@
+Perltidy version is 20160302
+
+1: struct packed_values packed = { .bytes = bytes; .length = 2; };
+                                 - ^                              
+found . where term expected (previous token underlined)
+
+1: struct packed_values packed = { .bytes = bytes; .length = 2; };
+                                                 - ^              
+found . where term expected (previous token underlined)
