@@ -31,10 +31,9 @@ void frameless_player() {
            ws2812_sendarray((uint8_t *) black, 3);
          }
       }
-      _delay_us(50);
+      _delay_us(60); // latch
+      _delay_ms(70); //pause between frames
    }
-
-   _delay_us(40);
 
    for (int position = 7; position >= 0; position--) {
       for (int frame = 0; frame <8; frame++) {
@@ -51,9 +50,7 @@ void frameless_player() {
            ws2812_sendarray((uint8_t *) black, 3);
          }
       }
-      _delay_us(50);
+      _delay_us(60); // latch
+      _delay_ms(70); //pause between frames
    }
-
-   _delay_us(40);
-
 }
