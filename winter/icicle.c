@@ -16,7 +16,7 @@ void frameless_player() {
    struct cRGB dark_blue[] = {{ .r = 0x00, .g = 0x00, .b = 0x44 }};
    struct cRGB black[] = {{ .r = 0x00, .g = 0x00, .b = 0x00} };
 
-   for (int position = 0; position < 8; position++) {
+   for (int position = 0; position < 11; position++) {
       for (int frame = 0; frame <8; frame++) {
          if( position == frame ) {
            ws2812_sendarray((uint8_t *) blue, 3);
@@ -32,6 +32,8 @@ void frameless_player() {
          }
       }
       _delay_us(60); // latch
-      _delay_ms(170); //pause between frames
+      _delay_ms(100); //pause between frames
    }
+
+   _delay_ms(700);
 }
